@@ -88,6 +88,19 @@
         </v-row>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col>
+        <ul>
+          <li v-for="(weather, index) in weatherForecast" :key="weather.date">
+           
+            <div> {{ weather.summary }} {{ index }}</div>
+              <small> {{ weather.temperatureC }} Celcius  - {{ weather.temperatureF }} Farenheit</small>
+          </li>
+
+         
+        </ul>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -146,6 +159,12 @@
           href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
         },
       ],
+      weatherForecast: []
     }),
+    mounted() {
+      fetch('https://localhost:7013/WeatherForecast')
+      .then(response => response.json())
+			.then(response => this.weatherForecast = response);
+    },
   }
 </script>
